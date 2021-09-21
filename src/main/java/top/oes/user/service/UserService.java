@@ -1,4 +1,4 @@
-package top.oes.service;
+package top.oes.user.service;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -14,10 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.log4j.Log4j2;
-import top.oes.model.User;
-import top.oes.repository.UserRepository;
+import top.oes.user.model.User;
+import top.oes.user.repository.UserRepository;
 import top.oes.security.service.UserDetailsServiceImpl;
-import top.oes.utils.JwtTokenUtil;
+import top.oes.common.utils.JwtTokenUtil;
 
 /**
  * @author bwang
@@ -75,7 +75,7 @@ public class UserService {
      */
     public String register(User user) {
         //检查登陆名是否重复
-        User repeatUser = userRepository.findUserByLoginName(user.getLoginName());
+        User repeatUser = userRepository.findUserBySchoolNumber(user.getSchoolNumber());
         if (Objects.nonNull(repeatUser)) {
             return "登陆名重复，请重新设置";
         }

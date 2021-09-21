@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import top.oes.model.User;
-import top.oes.repository.UserRepository;
+import top.oes.user.model.User;
+import top.oes.user.repository.UserRepository;
 
 /**
  * @author bwang
@@ -24,8 +24,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {
-        User user = userRepository.findUserByLoginName(loginName);
+    public UserDetails loadUserByUsername(String schoolNumber) throws UsernameNotFoundException {
+        User user = userRepository.findUserBySchoolNumber(schoolNumber);
         if (Objects.isNull(user)) {
             throw new UsernameNotFoundException("用户不存在");
         }

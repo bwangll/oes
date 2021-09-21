@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS tbl_user
     user_id       BIGSERIAL
         CONSTRAINT tbl_user_pkey
             PRIMARY KEY,
-    login_name    VARCHAR(100)               NOT NULL,
+    school_number    VARCHAR(100)               NOT NULL,
     user_name     VARCHAR(255)               NOT NULL,
     user_password VARCHAR(1024)              NOT NULL,
     user_mobile   VARCHAR(20),
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS tbl_user
 
 COMMENT ON TABLE tbl_user IS '用户表';
 
-COMMENT ON COLUMN tbl_user.login_name IS '登陆名';
+COMMENT ON COLUMN tbl_user.school_number IS '学号';
 
 COMMENT ON COLUMN tbl_user.user_name IS '用户名';
 
@@ -79,7 +79,7 @@ ALTER TABLE tbl_user
 
 --新增基础用户 admin管理员
 
-INSERT INTO tbl_user(login_name, user_name, user_password, create_date, role_id)
+INSERT INTO tbl_user(school_number, user_name, user_password, create_date, role_id)
 VALUES ('admin', 'admin', '$2a$10$Q9meGlnwGaG9X7m1img2qOUUiz6vQzxAXxYUu7AYn0.Vnra5RNn0y', NOW(), 1);
 
 
@@ -88,7 +88,8 @@ CREATE TABLE IF NOT EXISTS tbl_user_group
     user_group_id   BIGSERIAL
         CONSTRAINT tbl_user_group_pkey
             PRIMARY KEY,
-    user_group_name VARCHAR(255) NOT NULL
+    user_group_name VARCHAR(255) NOT NULL,
+    parent_id BIGINT NOT NULL
 );
 
 COMMENT ON TABLE tbl_user_group IS '用户组表';
@@ -97,6 +98,15 @@ COMMENT ON COLUMN tbl_user_group.user_group_name IS '用户组名';
 
 ALTER TABLE tbl_user_group
     OWNER TO postgres;
+
+--默认数据用于测试
+INSERT INTO tbl_user_group(user_group_name, parent_id)
+VALUES ('ROOT', 0),
+       ('计算机学院', 1),
+       ('计算机系', 2),
+       ('软件工程一班', 3),
+       ('软件工程二班', 2);
+
 
 CREATE TABLE IF NOT EXISTS tbl_user_group_user
 (
@@ -120,25 +130,5 @@ COMMENT ON COLUMN tbl_user_group_user.user_group_id IS '用户组id';
 ALTER TABLE tbl_user_group_user
     OWNER TO postgres;
 
-CREATE TABLE IF NOT EXISTS tbl_user_group_role
-(
-    id            BIGSERIAL
-        CONSTRAINT tbl_user_group_role_pkey
-            PRIMARY KEY,
-    user_group_id BIGINT NOT NULL
-        CONSTRAINT tbl_user_group_role_user_group_id_fkey
-            REFERENCES tbl_user_group,
-    role_id       BIGINT NOT NULL
-        CONSTRAINT tbl_user_group_role_role_id_fkey
-            REFERENCES tbl_role
-);
-
-COMMENT ON TABLE tbl_user_group_role IS '用户组-角色关联表';
-
-COMMENT ON COLUMN tbl_user_group_role.user_group_id IS '用户组id';
-
-COMMENT ON COLUMN tbl_user_group_role.role_id IS '角色id';
-
-ALTER TABLE tbl_user_group_role
-    OWNER TO postgres;
-
+INSERT INTO tbl_user_group_user(user_id, user_group_id)
+VALUES (1, 1);

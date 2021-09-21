@@ -1,4 +1,4 @@
-package top.oes.utils;
+package top.oes.common.utils;
 
 import java.util.Date;
 import java.util.HashMap;

@@ -1,17 +1,20 @@
-package top.oes.model;
+package top.oes.user.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -40,7 +43,7 @@ import lombok.Setter;
 @Entity
 @DynamicUpdate
 @Table(name = "tbl_user", schema = "public", catalog = "oes")
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
@@ -48,8 +51,8 @@ public class User implements UserDetails {
 
     @ApiModelProperty("登陆名")
     @NotEmpty(message = "登陆名不可为空")
-    @Column(name = "login_name", nullable = false, length = 100)
-    private String loginName;
+    @Column(name = "school_number", nullable = false, length = 100)
+    private String schoolNumber;
 
     @ApiModelProperty("用户名")
     @NotEmpty(message = "用户名不可为空")
@@ -94,6 +97,11 @@ public class User implements UserDetails {
     @ManyToOne(optional = false)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", insertable = false, updatable = false)
     private Role role;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
+    @JoinTable(name = "tbl_user_group_user", joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_group_id"))
+    private UserGroup userGroup;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -140,7 +148,7 @@ public class User implements UserDetails {
         }
         User user = (User) o;
         return userId == user.userId
-            && Objects.equals(loginName, user.loginName)
+            && Objects.equals(schoolNumber, user.schoolNumber)
             && Objects.equals(userName, user.userName)
             && Objects.equals(password, user.password)
             && Objects.equals(userMobile, user.userMobile)
@@ -155,7 +163,7 @@ public class User implements UserDetails {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, loginName, userName, password, userMobile,
+        return Objects.hash(userId, schoolNumber, userName, password, userMobile,
             userEmail, userLevel, userIcon, createDate, modifyDate, userEnable, lastLogin);
     }
 
@@ -163,9 +171,9 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
             "userId=" + userId +
-            ", loginName='" + loginName + '\'' +
+            ", schoolNumber='" + schoolNumber + '\'' +
             ", userName='" + userName + '\'' +
-            ", userPassword='" + password + '\'' +
+            ", password='" + password + '\'' +
             ", userMobile='" + userMobile + '\'' +
             ", userEmail='" + userEmail + '\'' +
             ", userLevel=" + userLevel +
@@ -175,6 +183,7 @@ public class User implements UserDetails {
             ", userEnable=" + userEnable +
             ", lastLogin=" + lastLogin +
             ", role=" + role +
+            ", userGroup=" + userGroup +
             '}';
     }
 }

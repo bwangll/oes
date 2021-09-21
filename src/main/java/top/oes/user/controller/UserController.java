@@ -1,4 +1,4 @@
-package top.oes.controller;
+package top.oes.user.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.hutool.core.util.StrUtil;
 import top.oes.common.CommonResult;
-import top.oes.model.User;
-import top.oes.model.dto.LoginParam;
-import top.oes.service.UserService;
+import top.oes.user.model.User;
+import top.oes.user.model.dto.LoginParam;
+import top.oes.user.service.UserService;
 
 /**
  * @author bwang
@@ -42,9 +42,9 @@ public class UserController {
 
     @PostMapping("/login")
     public CommonResult<?> login(@RequestBody LoginParam loginParam) {
-        String token = userService.login(loginParam.getLoginName(), loginParam.getPassword());
+        String token = userService.login(loginParam.getSchoolNumber(), loginParam.getPassword());
         if (StrUtil.isEmpty(token)) {
-            return CommonResult.validateFailed("用户名或者密码错误");
+            return CommonResult.validateFailed("学号或者密码错误");
         }
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
