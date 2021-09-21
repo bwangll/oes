@@ -1,0 +1,23 @@
+###
+POST {{host}}/register
+Content-Type: application/json
+
+{
+  "loginName": "test",
+  "userName": "test",
+  "password": "test",
+  "roleId": "3"
+}
+
+###
+DELETE {{host}}/user/7
+Authorization: Bearer {{token}}
+
+
+###
+GET {{host}}/get
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/admin
+Authorization: Bearer {{token}}
