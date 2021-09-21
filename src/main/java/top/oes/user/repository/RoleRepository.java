@@ -1,9 +1,9 @@
-package top.oes.repository;
+package top.oes.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import top.oes.model.Role;
+import top.oes.user.model.Role;
 
 /**
  * @author bwang

@@ -1,5 +1,6 @@
-package top.oes.model;
+package top.oes.user.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ import lombok.Setter;
     @TypeDef(name = "string-array", typeClass = StringArrayType.class)
 })
 @Table(name = "tbl_role", schema = "public", catalog = "oes")
-public class Role {
+public class Role implements Serializable {
     @Id
     @Column(name = "role_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

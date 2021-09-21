@@ -1,4 +1,4 @@
-package top.oes.model.dto;
+package top.oes.user.model.dto;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -16,7 +16,7 @@ import lombok.Setter;
 public class LoginParam {
 
     @NotEmpty(message = "用户名不可为空")
-    private String loginName;
+    private String schoolNumber;
 
     @NotEmpty(message = "密码不可为空")
     private String password;

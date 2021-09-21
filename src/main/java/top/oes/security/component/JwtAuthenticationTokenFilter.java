@@ -19,7 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import lombok.extern.log4j.Log4j2;
 import top.oes.security.service.UserDetailsServiceImpl;
-import top.oes.utils.JwtTokenUtil;
+import top.oes.common.utils.JwtTokenUtil;
 
 /**
  * @author bwang

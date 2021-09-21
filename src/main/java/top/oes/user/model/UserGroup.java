@@ -1,5 +1,6 @@
-package top.oes.model;
+package top.oes.user.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -27,7 +28,7 @@ import lombok.Setter;
 @Entity
 @DynamicUpdate
 @Table(name = "tbl_user_group", schema = "public", catalog = "oes")
-public class UserGroup {
+public class UserGroup implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +37,9 @@ public class UserGroup {
 
     @Column(name = "user_group_name", nullable = false)
     private String userGroupName;
+
+    @Column(name = "parent_id")
+    private long parentId;
 
     @Override
     public boolean equals(Object o) {
@@ -46,20 +50,20 @@ public class UserGroup {
             return false;
         }
         UserGroup userGroup = (UserGroup) o;
-        return userGroupId == userGroup.userGroupId && Objects.equals(userGroupName, userGroup.userGroupName);
+        return userGroupId == userGroup.userGroupId && parentId == userGroup.parentId && Objects.equals(userGroupName, userGroup.userGroupName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userGroupId, userGroupName);
+        return Objects.hash(userGroupId, userGroupName, parentId);
     }
-
 
     @Override
     public String toString() {
         return "UserGroup{" +
             "userGroupId=" + userGroupId +
             ", userGroupName='" + userGroupName + '\'' +
+            ", parentId=" + parentId +
             '}';
     }
 }

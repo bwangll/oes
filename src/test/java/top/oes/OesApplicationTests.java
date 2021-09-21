@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import top.oes.model.User;
-import top.oes.repository.RoleRepository;
-import top.oes.repository.UserRepository;
+import top.oes.user.model.User;
+import top.oes.user.repository.RoleRepository;
+import top.oes.user.repository.UserRepository;
 
 @SpringBootTest
 class OesApplicationTests {

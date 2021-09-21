@@ -1,9 +1,9 @@
-package top.oes.repository;
+package top.oes.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import top.oes.model.User;
+import top.oes.user.model.User;
 
 /**
  * @author bwang
@@ -16,10 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
      * 根据用户名查询用户信息
-     * @param loginName loginName
+     * @param schoolNumber schoolNumber
      * @return user
      */
-    User findUserByLoginName(String loginName);
-
-
+    User findUserBySchoolNumber(String schoolNumber);
 }
