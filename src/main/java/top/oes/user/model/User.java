@@ -147,18 +147,7 @@ public class User implements UserDetails, Serializable {
             return false;
         }
         User user = (User) o;
-        return userId == user.userId
-            && Objects.equals(schoolNumber, user.schoolNumber)
-            && Objects.equals(userName, user.userName)
-            && Objects.equals(password, user.password)
-            && Objects.equals(userMobile, user.userMobile)
-            && Objects.equals(userEmail, user.userEmail)
-            && Objects.equals(userLevel, user.userLevel)
-            && Objects.equals(userIcon, user.userIcon)
-            && Objects.equals(createDate, user.createDate)
-            && Objects.equals(modifyDate, user.modifyDate)
-            && Objects.equals(userEnable, user.userEnable)
-            && Objects.equals(lastLogin, user.lastLogin);
+        return userId == user.userId;
     }
 
     @Override
