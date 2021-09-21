@@ -1,0 +1,13 @@
+###登陆过程，同时设置token
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "loginName": "admin",
+  "password": "admin"
+}
+
+> {%
+ client.global.set("token", response.body.data.token)
+%}
+
